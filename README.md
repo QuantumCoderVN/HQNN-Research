@@ -2,8 +2,8 @@ Hybrid Quantum Neural Networks (HQNN) – Research Project
  
 This repository contains experiments on Hybrid Quantum Neural Networks (HQNNs) applied to MNIST and CIFAR-10 datasets.
 The project aims to evaluate the effectiveness of hybrid models (classical + quantum layers) compared to purely classical baselines (MLP, CNN).
-
-📌 Objectives
+-----------------------------------------------------------
+## 📌 Objectives
 
 - Implement and evaluate classical baselines:
 - MLP on MNIST
@@ -14,8 +14,8 @@ The project aims to evaluate the effectiveness of hybrid models (classical + qua
 - HQNN Model 3: CNN feature extractor + VQC classifier
 - Explore Hybrid Quantum Convolutional Neural Network (HQCNN) on CIFAR-10.
 - Compare results, analyze strengths/limitations, and discuss the potential of quantum machine learning.
-
-⚙️ Installation
+-----------------------------------------------------------
+## ⚙️ Installation
 
 1. Clone the repository
 git clone https://github.com/QuantumCoderVN/HQNN-Research.git
@@ -32,8 +32,8 @@ source venv/bin/activate
 
 3. Install dependencies
 pip install -r requirements.txt
-
-🚀 How to Run
+-----------------------------------------------------------
+## 🚀 How to Run
 
 Run Classical Baseline (MNIST – MLP)
 python src/main.py --dataset mnist --model mlp
@@ -50,22 +50,24 @@ python src/main.py --dataset cifar10 --model hqnn3
 All results (logs, plots, checkpoints) will be saved automatically in:
 results/<DATASET>/<MODEL>/<RUN_ID>/
 
+-----------------------------------------------------------
+## 📂 Repository Structure
 
-📂 Repository Structure
-
+```bash
 HQNN-Research/
 ├── src/
-│ ├── config.py → Global configs & hyperparameters
-│ ├── data_loader.py → Dataset loaders (MNIST, CIFAR-10)
-│ ├── models.py → Classical & hybrid models
-│ ├── utils.py → Logging, plotting, evaluation
-│ └── main.py → Training script
-├── results/ → Outputs (auto-generated per run)
-├── requirements.txt → Dependencies
-├── .gitignore → Ignore datasets, models, caches
-└── README.md → Project documentation
- -----------------------------------------------------------
-📊 Example Results
+│   ├── config.py        # Global configs & hyperparameters
+│   ├── data_loader.py   # Dataset loaders (MNIST, CIFAR-10)
+│   ├── models.py        # Classical & hybrid models
+│   ├── utils.py         # Logging, plotting, evaluation
+│   └── main.py          # Training script
+├── results/             # Outputs (auto-generated per run)
+├── requirements.txt     # Dependencies
+├── .gitignore           # Ignore datasets, models, caches
+└── README.md            # Project documentation
+
+-----------------------------------------------------------
+##  📊 Example Results
 -----------------------------------------------------------
  | Model            | Dataset | Accuracy | Notes                          |
  |------------------|---------|----------|--------------------------------|
