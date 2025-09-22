@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+
+# Dataset
+data/
+*.zip
+*.tar.gz
+
+# Models
+*.pth
+*.h5
+
+# Results (giữ logs nhẹ, bỏ file nặng)
+results/*/run_*/model.pth
+results/*/run_*/test_predictions.png
+results/*/run_*/test_results.json
+results/*/run_*/train_results.json
