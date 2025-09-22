@@ -54,16 +54,16 @@ results/<DATASET>/<MODEL>/<RUN_ID>/
 📂 Repository Structure
 
 HQNN-Research/
- ├── src/
- │   ├── config.py          # Global configs & hyperparameters
- │   ├── data_loader.py     # Dataset loaders (MNIST, CIFAR-10)
- │   ├── models.py          # Classical & hybrid models
- │   ├── utils.py           # Logging, plotting, evaluation
- │   └── main.py            # Training script
- ├── results/               # Outputs (auto-generated per run)
- ├── requirements.txt       # Dependencies
- ├── .gitignore             # Ignore datasets, models, caches
- └── README.md              # Project documentation
+├── src/
+│ ├── config.py → Global configs & hyperparameters
+│ ├── data_loader.py → Dataset loaders (MNIST, CIFAR-10)
+│ ├── models.py → Classical & hybrid models
+│ ├── utils.py → Logging, plotting, evaluation
+│ └── main.py → Training script
+├── results/ → Outputs (auto-generated per run)
+├── requirements.txt → Dependencies
+├── .gitignore → Ignore datasets, models, caches
+└── README.md → Project documentation
  -----------------------------------------------------------
 📊 Example Results
 -----------------------------------------------------------
