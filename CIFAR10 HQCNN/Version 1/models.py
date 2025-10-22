@@ -65,25 +65,15 @@ class HybridQNN(nn.Module):
 
         # --- NEW: Classical Pre-processing with CNN Block ---
         self.classical_pre_cnn = nn.Sequential(
-            # Block 1
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
-            nn.BatchNorm2d(32), # Add BatchNorm
+            # First Conv Layer
+            nn.Conv2d(cnn_channels[0], cnn_channels[1], kernel_size=kernel_size, padding='same'),
             nn.ReLU(),
-            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, padding=1),
-            nn.BatchNorm2d(32), # Add BatchNorm
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Dropout(0.25), # Add Dropout
+            nn.MaxPool2d(pool_size), # Image size: 32 -> 16
 
-            # Block 2
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
-            nn.BatchNorm2d(64), # Add BatchNorm
+            # Second Conv Layer
+            nn.Conv2d(cnn_channels[1], cnn_channels[2], kernel_size=kernel_size, padding='same'),
             nn.ReLU(),
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
-            nn.BatchNorm2d(64), # Add BatchNorm
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Dropout(0.25) # Add Dropout
+            nn.MaxPool2d(pool_size) # Image size: 16 -> 8
         )
 
         # --- Dynamically calculate the output features from CNN block ---
