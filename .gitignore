@@ -33,15 +33,19 @@ desktop.ini
 # IGNORE ALL RESULTS. These are generated artifacts from running code.
 # Only the code that *produces* the results should be in Git.
 # This rule ignores any folder whose name starts with 'results' (e.g., results_cifar10_hqcnn).
-**/results*
+**/results*/
 
 # Also ignore individual log and output files that might be created elsewhere.
 *.log
 *.tmp
 *.csv
-*.png
-*.txt
 
+**/results*/**/*.png
+**/results*/**/*.txt
+
+
+!**/training_metrics.png
+!**/training_log.txt
 # --- IMPORTANT EXCEPTIONS for results & logs ---
 # We MUST NOT ignore essential files like README or requirements.
 # The '!' prefix creates an exception to a previous rule.

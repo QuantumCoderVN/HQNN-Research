@@ -60,7 +60,7 @@ TRAINING_CONFIG = {
 # ====================================================================
 # --- 4. OUTPUT AND FILE CONFIGURATION ---
 # ====================================================================
-BASE_RESULT_DIR = 'results_cifar_cnn_reg' # Changed directory name for new experiments
+BASE_RESULT_DIR = 'results_cifar_cnn' # Changed directory name for new experiments
 DATA_DIR = './data_cifar'
 
 # File names for saving
