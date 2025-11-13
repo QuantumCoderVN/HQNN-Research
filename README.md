@@ -1,4 +1,4 @@
-# Hybrid Quantum Neural Networks (HQNN) – Research Project
+<!-- # Hybrid Quantum Neural Networks (HQNN) – Research Project
  
 - This repository contains experiments on Hybrid Quantum Neural Networks (HQNNs) applied to MNIST and CIFAR-10 datasets.
 - The project aims to evaluate the effectiveness of hybrid models (classical + quantum layers) compared to purely classical baselines (MLP, CNN).
@@ -88,4 +88,4 @@ HQNN-Research/
 ✍️ Author
 
 - Research project by [DINH NHU DUC]
-- Contact: [dinhnhuduc28092004@gmail.com]
+- Contact: [dinhnhuduc28092004@gmail.com] -->

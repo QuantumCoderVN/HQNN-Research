@@ -2,7 +2,7 @@
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F # For functional API if needed, e.g. MaxPool
+import torch.nn.functional as F
 import pennylane as qml
 from pennylane import numpy as pnp
 from config import MODEL_CONFIG, TRAINING_CONFIG
@@ -54,7 +54,7 @@ class HybridQNN(nn.Module):
         cfg_model = MODEL_CONFIG
         
         self.img_size = cfg_train['img_size']
-        self.num_color_channels = cfg_train['num_color_channels']
+        self.num_color_channels = cfg_train['num_color_channels'] # This will be 1
         n_qubits = cfg_model['n_qubits']
         num_classes = cfg_model['output_size']
 
@@ -63,27 +63,44 @@ class HybridQNN(nn.Module):
         pool_size = cfg_model['cnn_pool_size']
         cnn_linear_features = cfg_model['cnn_linear_features']
 
-        # --- Classical Pre-processing with CNN Block ---
+        # --- NEW: Classical Pre-processing with CNN Block ---
         self.classical_pre_cnn = nn.Sequential(
-            # First Conv Layer
-            nn.Conv2d(cnn_channels[0], cnn_channels[1], kernel_size=kernel_size, padding='same'),
+            # Block 1
+            ### MODIFIED ### (Read in_channels from config, which is 1 now)
+            nn.Conv2d(in_channels=self.num_color_channels, out_channels=32, kernel_size=3, padding=1),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
-            nn.MaxPool2d(pool_size), # Image size: 32 -> 16
+            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Dropout(0.25),
 
-            # Second Conv Layer
-            nn.Conv2d(cnn_channels[1], cnn_channels[2], kernel_size=kernel_size, padding='same'),
+            # Block 2
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d(pool_size) # Image size: 16 -> 8
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Dropout(0.25)
         )
 
-        with torch.no_grad(): # Don't track gradients for this dummy calculation
+        # --- Dynamically calculate the output features from CNN block ---
+        # (No change needed here. It will automatically use
+        # self.num_color_channels=1 and self.img_size=28)
+        with torch.no_grad():
             dummy_input = torch.zeros(1, self.num_color_channels, self.img_size, self.img_size)
             dummy_output = self.classical_pre_cnn(dummy_input)
             cnn_output_features = dummy_output.view(1, -1).shape[1]
+            
+            # For MNIST 28x28 -> Pool(14x14) -> Pool(7x7)
+            # Output size will be 64 * 7 * 7
 
         # Linear layers after CNN to compress features for the quantum layer
         self.classical_pre_linear = nn.Sequential(
-            nn.Linear(cnn_output_features, cnn_linear_features), # Larger hidden layer for rich features
+            nn.Linear(cnn_output_features, cnn_linear_features), 
             nn.ReLU(),
             nn.Linear(cnn_linear_features, n_qubits) # Compress to N_QUBITS
         )

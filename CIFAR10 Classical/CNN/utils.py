@@ -90,9 +90,6 @@ def plot_predictions(model, data_loader, device, num_images=10, filename=PREDICT
         ax = axes[idx]
         # Images are (C, H, W). Transpose to (H, W, C) for Matplotlib imshow
         img = images_to_show[idx].cpu().numpy().transpose((1, 2, 0)) 
-        
-        # Note: The image will appear slightly off-color due to normalization. 
-        # A proper denormalization step is needed for true color display, but not critical for code logic.
         ax.imshow(img)
 
         true_label = labels_to_show[idx].item()

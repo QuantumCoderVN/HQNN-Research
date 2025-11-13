@@ -18,7 +18,7 @@ from utils import *
 def main():
     # --- 1. SETUP & CONFIGURATION ---
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    experiment_name = f"HQCNN_CIFAR10_{timestamp}" # Updated name
+    experiment_name = f"HQCNN_CIFAR10_{timestamp}"
     final_result_dir = setup_results_directory(experiment_name=experiment_name)
 
     write_log(f"Experiment: {experiment_name}")

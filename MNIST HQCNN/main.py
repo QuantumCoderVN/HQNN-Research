@@ -9,7 +9,8 @@ import time
 # Import configurations
 from config import *
 # Import data loading function
-from data_loader import get_cifar10_data_loaders 
+### MODIFIED ###
+from data_loader import get_mnist_data_loaders 
 # Import model classes
 from models import HybridQNN, quantum_circuit
 # Import utilities
@@ -18,7 +19,7 @@ from utils import *
 def main():
     # --- 1. SETUP & CONFIGURATION ---
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    experiment_name = f"HQCNN_CIFAR10_{timestamp}" 
+    experiment_name = f"HQCNN_MNIST_{timestamp}" 
     final_result_dir = setup_results_directory(experiment_name=experiment_name)
 
     write_log(f"Experiment: {experiment_name}")
@@ -28,7 +29,7 @@ def main():
         torch.cuda.empty_cache()
 
     # --- 2. DATA PREPARATION ---
-    train_loader, test_loader = get_cifar10_data_loaders()
+    train_loader, test_loader = get_mnist_data_loaders()
 
     # --- 3. MODEL DEFINITION & SUMMARY ---
     model = HybridQNN().to(DEVICE)
@@ -61,6 +62,7 @@ def main():
     write_log("\n--- Training Started ---")
 
     # --- 5. TRAINING LOOP ---
+    # (No changes needed in the training loop)
     for epoch in range(NUM_EPOCHS):
         if hasattr(model, 'quantum_layer'):
             quantum_weights_history.append(model.quantum_layer.weights.detach().cpu().numpy().copy())

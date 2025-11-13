@@ -32,20 +32,13 @@ class SimpleCNN(nn.Module):
             kernel_size = layer_cfg['kernel_size']
             padding = layer_cfg['padding']
             pool_after = layer_cfg.get('pool_after', False) 
-            
-            # 2a. CONV Layer
+        
             self.conv_sequence.add_module(
                 f'conv_{i}', 
                 nn.Conv2d(current_channels, out_channels, kernel_size, padding=padding)
             )
-            
-            # ADJUSTMENT: Add Batch Normalization after CONV layer
             self.conv_sequence.add_module(f'bn_{i}', nn.BatchNorm2d(out_channels))
-            
-            # 2b. Activation
             self.conv_sequence.add_module(f'relu_{i}', activation_fn())
-            
-            # 2c. Optional Max Pooling
             if pool_after:
                 self.conv_sequence.add_module(f'pool_{i}', nn.MaxPool2d(kernel_size=2, stride=2))
                 current_size //= 2 
@@ -62,8 +55,7 @@ class SimpleCNN(nn.Module):
         self.fc_sequence = nn.Sequential(
             # ADJUSTMENT: Add BatchNorm1d before the first linear layer (after flattening)
             nn.BatchNorm1d(self.fc_input_size), 
-            nn.Linear(self.fc_input_size, fc_hidden_size),
-            activation_fn(),
+            nn.Linear(self.fc_input_size, fc_hidden_size), activation_fn(),
             nn.Dropout(p=dropout_rate),
             nn.Linear(fc_hidden_size, output_size) 
         )
