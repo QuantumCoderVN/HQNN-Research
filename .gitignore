@@ -27,7 +27,7 @@ desktop.ini
 # IGNORE ALL DATA. Datasets are often large, binary, and can be downloaded again.
 # Storing them in Git makes the repository extremely large and slow.
 # This rule ignores any folder whose name starts with 'data' (e.g., data_cifar10, data_mnist).
-**/data*
+**/data*/
 
 # --- 5. Experiment Results & Logs (CRITICAL) ---
 # IGNORE ALL RESULTS. These are generated artifacts from running code.
